@@ -1,6 +1,11 @@
 
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using projeto_farmacia.Data;
+using projeto_farmacia.Model;
+using projeto_farmacia.Service;
+using projeto_farmacia.Service.Implements;
+using projeto_farmacia.Validator;
 
 namespace projeto_farmacia
 {
@@ -21,6 +26,12 @@ namespace projeto_farmacia
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString)
             );
+
+            // Validação das Entidades
+            builder.Services.AddTransient<IValidator<Produto>, ProdutoValidator>();
+
+            // Registrar as Classes e Interfaces Service
+            builder.Services.AddScoped<IProdutoService, ProdutoService>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
