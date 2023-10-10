@@ -61,12 +61,10 @@ namespace projeto_farmacia.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, validarProduto);
             }
 
-            /*var Resposta = await _produtoService.Create(produto);
+            var Resposta = await _produtoService.Create(produto);
 
             if (Resposta is null)
-                return BadRequest("Categoria não encontrada!");*/
-
-            await _produtoService.Create(produto);//vai ser removido ao relacionar
+                return BadRequest("Categoria não encontrada!");
 
             return CreatedAtAction(nameof(GetById), new { id = produto.Id }, produto);
         }

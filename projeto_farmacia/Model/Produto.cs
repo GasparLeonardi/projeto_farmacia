@@ -29,6 +29,6 @@ namespace projeto_farmacia.Model
 
         //Chave estrangeira
 
-
+        public virtual Categoria? Categoria { get; set; }
     }
 }

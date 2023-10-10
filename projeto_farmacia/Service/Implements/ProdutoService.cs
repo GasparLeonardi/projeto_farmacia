@@ -17,7 +17,7 @@ namespace projeto_farmacia.Service.Implements
         public async Task<IEnumerable<Produto>> GetAll()
         {
             return await _context.Produtos
-                //.Include(p => p.Categoria)
+                .Include(p => p.Categoria)
                 .ToListAsync();
         }
 
@@ -26,7 +26,7 @@ namespace projeto_farmacia.Service.Implements
             try
             {
                 var Produto = await _context.Produtos
-                    //.Include(p => p.Categoria)
+                    .Include(p => p.Categoria)
                     .FirstAsync(i => i.Id == id);
                 return Produto;
             }
@@ -39,7 +39,7 @@ namespace projeto_farmacia.Service.Implements
         public async Task<IEnumerable<Produto>> GetByNome(string nome)
         {
             var Produto = await _context.Produtos
-                //.Include(p => p.Categoria)
+                .Include(p => p.Categoria)
                 .Where(p => p.Nome.Contains(nome))
                 .ToListAsync();
             return Produto;
@@ -48,7 +48,7 @@ namespace projeto_farmacia.Service.Implements
         public async Task<IEnumerable<Produto>> GetByDescricao(string descricao)
         {
             var Produto = await _context.Produtos
-                //.Include(p => p.Categoria)
+                .Include(p => p.Categoria)
                 .Where(p => p.Descricao.Contains(descricao))
                 .ToListAsync();
             return Produto;
@@ -57,7 +57,7 @@ namespace projeto_farmacia.Service.Implements
         //
         public async Task<Produto?> Create(Produto produto)
         {
-            /*if (produto.Categoria is not null)
+            if (produto.Categoria is not null)
             {
                 var buscarCategoria = await _context.Categorias.FindAsync(produto.Categoria.Id);
 
@@ -65,9 +65,9 @@ namespace projeto_farmacia.Service.Implements
                 {
                     return null;
                 }
-            }*/
+            }
 
-            //produto.Categoria = produto.Categoria is not null ? _context.Categorias.FirstOrDefault(c => c.Id == produto.Categoria.Id) : null;
+            produto.Categoria = produto.Categoria is not null ? _context.Categorias.FirstOrDefault(c => c.Id == produto.Categoria.Id) : null;
 
 
             await _context.Produtos.AddAsync(produto);
@@ -83,7 +83,7 @@ namespace projeto_farmacia.Service.Implements
             if (ProdutoUpdate is null)
                 return null;
 
-            /*if (produto.Categoria is not null)
+            if (produto.Categoria is not null)
             {
                 var BuscarCategoria = await _context.Categorias.FindAsync(produto.Categoria.Id);
 
@@ -92,7 +92,7 @@ namespace projeto_farmacia.Service.Implements
             }
 
             produto.Categoria = produto.Categoria is not null ? _context.Categorias
-                .FirstOrDefault(t => t.Id == produto.Categoria.Id) : null;*/
+                .FirstOrDefault(t => t.Id == produto.Categoria.Id) : null;
 
             _context.Entry(ProdutoUpdate).State = EntityState.Detached;
             _context.Entry(produto).State = EntityState.Modified;
